@@ -1,0 +1,385 @@
+[gd_scene load_steps=18 format=3 uid="uid://bhp02oy73u0b5"]
+
+[ext_resource type="PackedScene" uid="uid://bl4dgkdt8rexv" path="res://scenes/level.tscn" id="4_tbgi4"]
+[ext_resource type="Script" uid="uid://b7ecah37jx738" path="res://scripts/bits/player_finished.gd" id="6_o6xl0"]
+[ext_resource type="Script" uid="uid://m0fehjfpnp51" path="res://scripts/bits/delete.gd" id="7_tipki"]
+[ext_resource type="Script" uid="uid://bslmamakq2ao5" path="res://scripts/values/node/group_node.gd" id="12_eb6dy"]
+[ext_resource type="Script" uid="uid://b55vjdqvt4nkj" path="res://scripts/values/packed_scene/manual_packedscene.gd" id="15_jkv2x"]
+[ext_resource type="Script" uid="uid://dw7w6pry2g435" path="res://scripts/bits/player_animator.gd" id="22_jscy8"]
+[ext_resource type="Script" uid="uid://chbr2ps15l74p" path="res://scripts/bits/add.gd" id="23_pm3ni"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o6xl0"]
+bg_color = Color(0.4054028, 0.25100443, 0.13057676, 1)
+border_width_left = 20
+border_width_top = 20
+border_width_right = 20
+border_width_bottom = 20
+border_color = Color(0.23, 0.11994501, 0.0299, 1)
+border_blend = true
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tipki"]
+bg_color = Color(0.31764707, 0.19215687, 0.09411765, 1)
+border_width_left = 20
+border_width_top = 20
+border_width_right = 20
+border_width_bottom = 20
+border_color = Color(0.23, 0.11994501, 0.0299, 1)
+border_blend = true
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_85g3d"]
+bg_color = Color(0.23815373, 0.13919339, 0.06180585, 1)
+border_width_left = 20
+border_width_top = 20
+border_width_right = 20
+border_width_bottom = 20
+border_color = Color(0.23, 0.11994501, 0.0299, 1)
+border_blend = true
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_choun"]
+bg_color = Color(0.64269006, 0.332492, 0.087312706, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.25, 0.13666666, 0.049999997, 1)
+
+[sub_resource type="Theme" id="Theme_ya4ey"]
+Button/styles/hover = SubResource("StyleBoxFlat_o6xl0")
+Button/styles/normal = SubResource("StyleBoxFlat_tipki")
+Button/styles/pressed = SubResource("StyleBoxFlat_85g3d")
+Panel/styles/panel = SubResource("StyleBoxFlat_choun")
+
+[sub_resource type="Animation" id="Animation_pm3ni"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/StartScreen:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control/StartScreen:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control/InputBlocker:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Control/LoseScreen:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1152, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_tefeu"]
+resource_name = "lost"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/StartScreen:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -648)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control/LoseScreen:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1152, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_tbgi4"]
+resource_name = "to_game"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/StartScreen:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -648)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control/InputBlocker:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control/LoseScreen:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1152, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_eb6dy"]
+resource_name = "lost_to_game"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/StartScreen:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -648)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control/LoseScreen:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-1152, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control/InputBlocker:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y6deb"]
+_data = {
+&"RESET": SubResource("Animation_pm3ni"),
+&"lost": SubResource("Animation_tefeu"),
+&"lost_to_game": SubResource("Animation_eb6dy"),
+&"to_game": SubResource("Animation_tbgi4")
+}
+
+[node name="Main" type="Node" groups=["Main"]]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 3
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_ya4ey")
+
+[node name="StartScreen" type="Panel" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/StartScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/StartScreen/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/StartScreen/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 81
+text = "Market Mania"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="CanvasLayer/Control/StartScreen/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 46
+text = "Start"
+
+[node name="Animater" type="Node" parent="CanvasLayer/Control/StartScreen/MarginContainer/VBoxContainer/Button"]
+script = ExtResource("22_jscy8")
+animation = "to_game"
+
+[node name="AddNode" type="Node" parent="CanvasLayer/Control/StartScreen/MarginContainer/VBoxContainer/Button"]
+script = ExtResource("23_pm3ni")
+
+[node name="ManualPackedScene" type="Node" parent="CanvasLayer/Control/StartScreen/MarginContainer/VBoxContainer/Button/AddNode"]
+script = ExtResource("15_jkv2x")
+response = ExtResource("4_tbgi4")
+metadata/_custom_type_script = "uid://b55vjdqvt4nkj"
+
+[node name="GroupNode" type="Node" parent="CanvasLayer/Control/StartScreen/MarginContainer/VBoxContainer/Button/AddNode"]
+script = ExtResource("12_eb6dy")
+group_name = "Main"
+metadata/_custom_type_script = "uid://bslmamakq2ao5"
+
+[node name="LoseScreen" type="Panel" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1152.0
+offset_right = 1151.9998
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/LoseScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/LoseScreen/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/LoseScreen/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 66
+text = "You Ran Out Of Stamina..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="CanvasLayer/Control/LoseScreen/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 46
+text = "Try Again"
+
+[node name="Animater" type="Node" parent="CanvasLayer/Control/LoseScreen/MarginContainer/VBoxContainer/Button"]
+script = ExtResource("22_jscy8")
+animation = "lost_to_game"
+
+[node name="AddNode" type="Node" parent="CanvasLayer/Control/LoseScreen/MarginContainer/VBoxContainer/Button"]
+script = ExtResource("23_pm3ni")
+
+[node name="ManualPackedScene" type="Node" parent="CanvasLayer/Control/LoseScreen/MarginContainer/VBoxContainer/Button/AddNode"]
+script = ExtResource("15_jkv2x")
+response = ExtResource("4_tbgi4")
+metadata/_custom_type_script = "uid://b55vjdqvt4nkj"
+
+[node name="GroupNode" type="Node" parent="CanvasLayer/Control/LoseScreen/MarginContainer/VBoxContainer/Button/AddNode"]
+script = ExtResource("12_eb6dy")
+group_name = "Main"
+metadata/_custom_type_script = "uid://bslmamakq2ao5"
+
+[node name="InputBlocker" type="Control" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Control" groups=["Animator"]]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_y6deb")
+}
+
+[node name="JustLost" type="Node" parent="CanvasLayer/Control/AnimationPlayer"]
+script = ExtResource("6_o6xl0")
+animation = "lost"
+metadata/_custom_type_script = "uid://b7ecah37jx738"
+
+[node name="DeleteLevel" type="Node" parent="CanvasLayer/Control/AnimationPlayer/JustLost"]
+script = ExtResource("7_tipki")
+metadata/_custom_type_script = "uid://m0fehjfpnp51"
+
+[node name="GetLevel" type="Node" parent="CanvasLayer/Control/AnimationPlayer/JustLost/DeleteLevel"]
+script = ExtResource("12_eb6dy")
+group_name = "Level"
+metadata/_custom_type_script = "uid://bslmamakq2ao5"
+
+[connection signal="pressed" from="CanvasLayer/Control/StartScreen/MarginContainer/VBoxContainer/Button" to="CanvasLayer/Control/StartScreen/MarginContainer/VBoxContainer/Button/Animater" method="animate"]
+[connection signal="pressed" from="CanvasLayer/Control/StartScreen/MarginContainer/VBoxContainer/Button" to="CanvasLayer/Control/StartScreen/MarginContainer/VBoxContainer/Button/AddNode" method="add"]
+[connection signal="pressed" from="CanvasLayer/Control/LoseScreen/MarginContainer/VBoxContainer/Button" to="CanvasLayer/Control/LoseScreen/MarginContainer/VBoxContainer/Button/Animater" method="animate"]
+[connection signal="pressed" from="CanvasLayer/Control/LoseScreen/MarginContainer/VBoxContainer/Button" to="CanvasLayer/Control/LoseScreen/MarginContainer/VBoxContainer/Button/AddNode" method="add"]
+[connection signal="finished" from="CanvasLayer/Control/AnimationPlayer/JustLost" to="CanvasLayer/Control/AnimationPlayer/JustLost/DeleteLevel" method="delete"]

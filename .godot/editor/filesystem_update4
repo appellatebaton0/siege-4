@@ -1,0 +1,10 @@
+res://addons/godot_super-wakatime/api_key_prompt.tscn
+res://addons/godot_super-wakatime/counter.tscn
+res://addons/godot_super-wakatime/decompressor.gd
+res://addons/godot_super-wakatime/godot_super-wakatime.gd
+res://addons/godot_super-wakatime/heartbeat.gd
+res://addons/godot_super-wakatime/utils.gd
+res://scenes/level.tscn
+res://scenes/food.tscn
+res://scenes/player.tscn
+res://scenes/spawner.tscn
