@@ -98,14 +98,14 @@ func _ready() -> void:
 				initial_bit = child
 				break
 	
-	
-	
+	# Run the on_active for any bits that will be active
+	# minus the initial_bit, which gets handled by other things.
+	for bit in bits:
+		if bit != initial_bit and not bit.exclusive:
+			bit.on_active()
 	
 	if initial_bit != null:
-		print("ini")
 		change_bit(initial_bit)
-	
-	
 
 func _process(delta: float) -> void:
 	# Run all bits' appropriate functions.

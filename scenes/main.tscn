@@ -1,32 +1,47 @@
-[gd_scene load_steps=6 format=3 uid="uid://chm3si0nicqxd"]
+[gd_scene load_steps=9 format=3 uid="uid://chm3si0nicqxd"]
 
 [ext_resource type="Script" path="res://scripts/bot.gd" id="1_o5qli"]
-[ext_resource type="Script" uid="uid://ce0lih35lp5ov" path="res://scripts/bits/movemaster2d.gd" id="2_sugp2"]
-[ext_resource type="Script" uid="uid://dm0cvcckbo1ha" path="res://scripts/bits/movebits/control_bits/float_control.gd" id="3_jyhfs"]
-
-[sub_resource type="Gradient" id="Gradient_sugp2"]
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_jyhfs"]
-gradient = SubResource("Gradient_sugp2")
+[ext_resource type="PackedScene" uid="uid://dt5anurf2hd6c" path="res://scenes/player.tscn" id="1_o6xl0"]
+[ext_resource type="Script" uid="uid://b55vjdqvt4nkj" path="res://scripts/values/packed_scene/manual_packedscene.gd" id="4_tipki"]
+[ext_resource type="PackedScene" uid="uid://chtyhmq2k76yo" path="res://scenes/enemy.tscn" id="5_85g3d"]
+[ext_resource type="Script" uid="uid://donf4y4qkpwsw" path="res://scripts/bits/spawner.gd" id="5_tefeu"]
+[ext_resource type="Script" uid="uid://b1o48vkwquyxs" path="res://scripts/values/node/manual_node.gd" id="6_choun"]
+[ext_resource type="Script" uid="uid://bl57jg6s28sas" path="res://scripts/values/vector2/rect_vec2.gd" id="7_ya4ey"]
+[ext_resource type="Script" uid="uid://dc8sod06feafh" path="res://scripts/values/float/manual_float.gd" id="8_tipki"]
 
 [node name="Main" type="Node" groups=["Main"]]
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Player" parent="." instance=ExtResource("1_o6xl0")]
+
+[node name="Spawner" type="Node2D" parent="."]
 script = ExtResource("1_o5qli")
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="Node2D"]
+[node name="SpawnerBit" type="Node" parent="Spawner" node_paths=PackedStringArray("parent", "scene", "spawn_position", "interval")]
+script = ExtResource("5_tefeu")
+parent = NodePath("ManualNode")
+scene = NodePath("ManualPackedScene")
+spawn_position = NodePath("AreaVector2")
+interval = NodePath("ManualFloat")
+metadata/_custom_type_script = "uid://donf4y4qkpwsw"
 
-[node name="MoveMasterBit2D" type="Node" parent="Node2D/CharacterBody2D"]
-script = ExtResource("2_sugp2")
-metadata/_custom_type_script = "uid://ce0lih35lp5ov"
+[node name="ManualPackedScene" type="Node" parent="Spawner/SpawnerBit"]
+script = ExtResource("4_tipki")
+response = ExtResource("5_85g3d")
+metadata/_custom_type_script = "uid://b55vjdqvt4nkj"
 
-[node name="FloatControlBit" type="Node" parent="Node2D/CharacterBody2D"]
-script = ExtResource("3_jyhfs")
-acceleration = 300.0
-max_speed = 400.0
-metadata/_custom_type_script = "uid://dm0cvcckbo1ha"
+[node name="ManualNode" type="Node" parent="Spawner/SpawnerBit" node_paths=PackedStringArray("response")]
+script = ExtResource("6_choun")
+response = NodePath("../../..")
+metadata/_custom_type_script = "uid://b1o48vkwquyxs"
 
-[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
-texture = SubResource("GradientTexture2D_jyhfs")
+[node name="AreaVector2" type="Node" parent="Spawner/SpawnerBit"]
+script = ExtResource("7_ya4ey")
+negative_bounds = Vector2(-50, -50)
+positive_bounds = Vector2(50, 50)
+
+[node name="ManualFloat" type="Node" parent="Spawner/SpawnerBit"]
+script = ExtResource("8_tipki")
+response = 0.2
+metadata/_custom_type_script = "uid://dc8sod06feafh"
 
 [node name="Camera2D" type="Camera2D" parent="."]

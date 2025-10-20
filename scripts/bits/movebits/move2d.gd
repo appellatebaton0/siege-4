@@ -7,6 +7,11 @@ func get_master() -> MoveMasterBit2D:
 	var parent = get_parent()
 	if parent is MoveMasterBit2D:
 		return parent
+	
+	for child in get_parent().get_children():
+		if child is MoveMasterBit2D:
+			return child
+	
 	return null
 
 func vec2_move_towards(from:Vector2, to:Vector2, delta:float):

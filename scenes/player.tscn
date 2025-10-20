@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://dt5anurf2hd6c"]
+
+[ext_resource type="Script" path="res://scripts/bot.gd" id="1_dqkch"]
+[ext_resource type="Script" uid="uid://ce0lih35lp5ov" path="res://scripts/bits/movemaster2d.gd" id="2_qlg0r"]
+[ext_resource type="Script" uid="uid://dm0cvcckbo1ha" path="res://scripts/bits/movebits/control_bits/float_control.gd" id="3_tuyoq"]
+[ext_resource type="Script" uid="uid://dx6xpuy57uxvg" path="res://scripts/bits/areamaster2D.gd" id="4_fjrip"]
+
+[sub_resource type="Gradient" id="Gradient_sugp2"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jyhfs"]
+gradient = SubResource("Gradient_sugp2")
+
+[node name="Player" type="Node2D"]
+script = ExtResource("1_dqkch")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+
+[node name="MoveMasterBit2D" type="Node" parent="CharacterBody2D"]
+script = ExtResource("2_qlg0r")
+metadata/_custom_type_script = "uid://ce0lih35lp5ov"
+
+[node name="FloatControlBit" type="Node" parent="CharacterBody2D"]
+script = ExtResource("3_tuyoq")
+acceleration = 300.0
+max_speed = 400.0
+metadata/_custom_type_script = "uid://dm0cvcckbo1ha"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="AreaMasterBit2D" type="Node" parent="Area2D"]
+script = ExtResource("4_fjrip")
+metadata/_custom_type_script = "uid://dx6xpuy57uxvg"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_jyhfs")

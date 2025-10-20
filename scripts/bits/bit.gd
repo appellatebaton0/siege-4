@@ -13,12 +13,15 @@ func get_bot() -> Bot:
 	if isolated:
 		return self
 	
-	var parent = get_parent()
+	# Search up through the hierarchy
+	var with = get_parent()
 	
-	if parent is Bit:
-		return parent.get_bot()
-	
-	if parent is Bot:
-		return parent
+	for i in range(3):
+		if with is Bit:
+			return with.bot
+		elif with is Bot:
+			return with
+		else:
+			with = with.get_parent()
 	
 	return self
