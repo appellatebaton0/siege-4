@@ -41,23 +41,27 @@ func set_direction(to:Vector2):
 	set_direction_x(to.x)
 	set_direction_y(to.y)
 
-@export var initial_bit:MoveBit
-var current_bit:MoveBit
+@export var initial_bit:MoveBit2D
+var current_bit:MoveBit2D
 
 ## All the childed bits.
-var bits:Array[MoveBit] = get_move_bits()
-func get_move_bits() -> Array[MoveBit]:
-	var response_bits:Array[MoveBit]
+@onready var bits:Array[MoveBit2D] = get_move_bits()
+func get_move_bits() -> Array[MoveBit2D]:
+	var response_bits:Array[MoveBit2D]
 	
-	# Append any children that are MoveBits.
+	# Append any children that are MoveBit2Ds.
 	for child in get_children():
-		if child is MoveBit:
+		if child is MoveBit2D:
+			response_bits.append(child)
+	
+	for child in get_parent().get_children():
+		if child is MoveBit2D:
 			response_bits.append(child)
 	
 	return response_bits
 
 ## Change the current_bit to another.
-func change_bit(to:MoveBit):
+func change_bit(to:MoveBit2D):
 	# Run the going-out function for the old bit
 	if current_bit != null:
 		current_bit.on_inactive()
@@ -68,6 +72,7 @@ func change_bit(to:MoveBit):
 	# Run the going-in function for the new bit!
 	if current_bit != null:
 		current_bit.on_active()
+	
 
 func _ready() -> void:
 	# Set mover2D
@@ -83,37 +88,41 @@ func _ready() -> void:
 	if initial_bit == null:
 		## Look in siblings
 		for sibling in get_parent().get_children():
-			if sibling is MoveBit:
+			if sibling is MoveBit2D:
 				initial_bit = sibling
 				break
 	if initial_bit == null:
 		## Look in children
 		for child in get_children():
-			if child is MoveBit:
+			if child is MoveBit2D:
 				initial_bit = child
 				break
 	
+	
+	
+	
 	if initial_bit != null:
+		print("ini")
 		change_bit(initial_bit)
+	
+	
 
 func _process(delta: float) -> void:
-	# Run the active bit.
-	if current_bit != null:
-		current_bit.active(delta)
-	
-	# Run all the inactive bits.
+	# Run all bits' appropriate functions.
 	for bit in bits:
-		if bit != current_bit:
+		# If it's always running, or is the one that should be.
+		if not bit.exclusive or bit == current_bit:
+			bit.active(delta)
+		else:
 			bit.inactive(delta)
 
 func _physics_process(delta: float) -> void:
-	# Run the physically active bit.
-	if current_bit != null:
-		current_bit.phys_active(delta)
-	
-	# Run all the physically inactive bits.
+	# Run all bits' appropriate functions.
 	for bit in bits:
-		if bit != current_bit:
+		# If it's always running, or is the one that should be.
+		if not bit.exclusive or bit == current_bit:
+			bit.phys_active(delta)
+		else:
 			bit.phys_inactive(delta)
 	
 	## Run on mover

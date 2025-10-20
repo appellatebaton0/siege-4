@@ -8,10 +8,12 @@ class_name FloatControlBit extends ControlBit
 @export var max_speed := 90.0
 
 func phys_active(delta:float) -> void:
-	
-	# Update the directions.
-	master.set_direction_x(Input.get_axis(inputs[inp.left], inputs[inp.right]))
-	master.set_direction_y(Input.get_axis(inputs[inp.up], inputs[inp.down]))
-	
-	# Apply the velocity
-	master.mover.velocity = vec2_move_towards(master.mover.velocity, master.get_direction() * max_speed, delta * acceleration)
+	if master != null:
+		# Update the directions.
+		master.set_direction_x(Input.get_axis(inputs[inp.left], inputs[inp.right]))
+		master.set_direction_y(Input.get_axis(inputs[inp.up], inputs[inp.down]))
+		
+		print(master.mover.velocity)
+		
+		# Apply the velocity
+		master.mover.velocity = vec2_move_towards(master.mover.velocity, master.get_direction() * max_speed, delta * acceleration)

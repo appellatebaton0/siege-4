@@ -2,6 +2,9 @@
 ## A bit that provides instructions for how to move,
 ## through a MoveMasterBit that executes them. 
 
+## Whether this MoveBit needs to be the current_state of its MoveMasterBit to run.
+@export var exclusive := true
+
 func on_active() -> void:
 	pass
 func on_inactive() -> void:
