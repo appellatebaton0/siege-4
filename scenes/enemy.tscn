@@ -17,16 +17,21 @@ script = ExtResource("1_7p1mj")
 texture = SubResource("GradientTexture2D_4ra3w")
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
 
 [node name="AreaMasterBit2D" type="Node" parent="Area2D"]
 script = ExtResource("2_5uy6h")
 metadata/_custom_type_script = "uid://dx6xpuy57uxvg"
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+collision_layer = 0
+collision_mask = 0
 
 [node name="MoveMasterBit2D" type="Node" parent="CharacterBody2D"]
 script = ExtResource("3_c4w8v")
 metadata/_custom_type_script = "uid://ce0lih35lp5ov"
 
-[node name="Node" type="Node" parent="CharacterBody2D"]
+[node name="StraightMove" type="Node" parent="CharacterBody2D"]
 script = ExtResource("4_xwavj")
+max_speeds = Vector2(-200, 0)
+acceleration = 250.0

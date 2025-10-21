@@ -1,9 +1,4 @@
-res://scenes/main.tscn
-res://scripts/bits/movebits/move.gd
-res://scripts/bits/movemaster2d.gd
-res://scripts/bits/movebits/control_bits/float_control.gd
-res://scripts/bits/movebits/move2d.gd
-res://scripts/bits/bit.gd
-res://scripts/values/vector2/rect_vec2.gd
 res://scenes/enemy.tscn
-res://scripts/bits/movebits/straight.gd
+res://scenes/main.tscn
+res://scripts/bits/spawner.gd
+res://scenes/player.tscn

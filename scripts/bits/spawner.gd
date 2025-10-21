@@ -45,10 +45,11 @@ func spawn_new() -> Node:
 		position_v = spawn_position.value()
 	elif is_class("Node2D"):
 		position_v = self.global_position
-	elif bot.is_class("Node2D"):
-		position_v = bot.global_position
 	else:
 		position_v = Vector2.ZERO
+	
+	if bot.is_class("Node2D"): ## Offset by the bot if needed
+		position_v += bot.global_position
 	
 	if spawn_rotation != null:
 		rotation_v = spawn_rotation.value()

@@ -14,6 +14,8 @@ gradient = SubResource("Gradient_sugp2")
 script = ExtResource("1_dqkch")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+collision_layer = 0
+collision_mask = 0
 
 [node name="MoveMasterBit2D" type="Node" parent="CharacterBody2D"]
 script = ExtResource("2_qlg0r")
@@ -21,11 +23,12 @@ metadata/_custom_type_script = "uid://ce0lih35lp5ov"
 
 [node name="FloatControlBit" type="Node" parent="CharacterBody2D"]
 script = ExtResource("3_tuyoq")
-acceleration = 300.0
-max_speed = 400.0
+acceleration = 40000.0
+max_speed = 300.0
 metadata/_custom_type_script = "uid://dm0cvcckbo1ha"
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_mask = 2
 
 [node name="AreaMasterBit2D" type="Node" parent="Area2D"]
 script = ExtResource("4_fjrip")

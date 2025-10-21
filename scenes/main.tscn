@@ -13,7 +13,11 @@
 
 [node name="Player" parent="." instance=ExtResource("1_o6xl0")]
 
+[node name="Player2" parent="." instance=ExtResource("1_o6xl0")]
+position = Vector2(224, -17)
+
 [node name="Spawner" type="Node2D" parent="."]
+position = Vector2(1049, 0)
 script = ExtResource("1_o5qli")
 
 [node name="SpawnerBit" type="Node" parent="Spawner" node_paths=PackedStringArray("parent", "scene", "spawn_position", "interval")]
@@ -36,12 +40,12 @@ metadata/_custom_type_script = "uid://b1o48vkwquyxs"
 
 [node name="AreaVector2" type="Node" parent="Spawner/SpawnerBit"]
 script = ExtResource("7_ya4ey")
-negative_bounds = Vector2(-50, -50)
-positive_bounds = Vector2(50, 50)
+negative_bounds = Vector2(-100, -300)
+positive_bounds = Vector2(300, 300)
 
 [node name="ManualFloat" type="Node" parent="Spawner/SpawnerBit"]
 script = ExtResource("8_tipki")
-response = 0.2
+response = 1.4
 metadata/_custom_type_script = "uid://dc8sod06feafh"
 
 [node name="Camera2D" type="Camera2D" parent="."]
