@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dt5anurf2hd6c"]
+[gd_scene load_steps=8 format=3 uid="uid://dt5anurf2hd6c"]
 
-[ext_resource type="Script" path="res://scripts/bot.gd" id="1_dqkch"]
+[ext_resource type="Script" uid="uid://cvqf1hrebc04p" path="res://scripts/bot.gd" id="1_dqkch"]
 [ext_resource type="Script" uid="uid://ce0lih35lp5ov" path="res://scripts/bits/movemaster2d.gd" id="2_qlg0r"]
 [ext_resource type="Script" uid="uid://dm0cvcckbo1ha" path="res://scripts/bits/movebits/control_bits/float_control.gd" id="3_tuyoq"]
 [ext_resource type="Script" uid="uid://dx6xpuy57uxvg" path="res://scripts/bits/areamaster2D.gd" id="4_fjrip"]
+[ext_resource type="Script" uid="uid://d1caarqf4qo63" path="res://scripts/bits/health.gd" id="5_qlg0r"]
 
 [sub_resource type="Gradient" id="Gradient_sugp2"]
 
@@ -38,3 +39,7 @@ metadata/_custom_type_script = "uid://dx6xpuy57uxvg"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("GradientTexture2D_jyhfs")
+
+[node name="HealthBit" type="Node" parent="." node_paths=PackedStringArray("t")]
+script = ExtResource("5_qlg0r")
+t = NodePath("..")
