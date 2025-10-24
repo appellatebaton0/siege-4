@@ -40,6 +40,5 @@ metadata/_custom_type_script = "uid://dx6xpuy57uxvg"
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("GradientTexture2D_jyhfs")
 
-[node name="HealthBit" type="Node" parent="." node_paths=PackedStringArray("t")]
+[node name="HealthBit" type="Node" parent="."]
 script = ExtResource("5_qlg0r")
-t = NodePath("..")

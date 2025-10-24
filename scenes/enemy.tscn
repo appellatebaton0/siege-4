@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://chtyhmq2k76yo"]
 
-[ext_resource type="Script" path="res://scripts/bot.gd" id="1_7p1mj"]
+[ext_resource type="Script" uid="uid://cvqf1hrebc04p" path="res://scripts/bot.gd" id="1_7p1mj"]
 [ext_resource type="Script" uid="uid://dx6xpuy57uxvg" path="res://scripts/bits/areamaster2D.gd" id="2_5uy6h"]
 [ext_resource type="Script" uid="uid://ce0lih35lp5ov" path="res://scripts/bits/movemaster2d.gd" id="3_c4w8v"]
 [ext_resource type="Script" uid="uid://cy1rmplhq2axl" path="res://scripts/bits/movebits/straight.gd" id="4_xwavj"]
@@ -22,6 +22,8 @@ collision_layer = 2
 [node name="AreaMasterBit2D" type="Node" parent="Area2D"]
 script = ExtResource("2_5uy6h")
 metadata/_custom_type_script = "uid://dx6xpuy57uxvg"
+
+[node name="Node" type="Node" parent="Area2D"]
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 collision_layer = 0

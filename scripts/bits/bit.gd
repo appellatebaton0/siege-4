@@ -25,3 +25,7 @@ func get_bot() -> Bot:
 			with = with.get_parent()
 	
 	return self
+
+## Scanning for a bit returns any results from the bot this bit belongs to.
+func scan_bot(for_id:String, include_self := true) -> Array[Bit]:
+	return bot._get_sub_bit(for_id, include_self)

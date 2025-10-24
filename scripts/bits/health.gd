@@ -22,8 +22,3 @@ func modify_health(amount:float):
 	
 	if health <= 0:
 		reached_zero.emit()
-
-
-@export var t:Bot
-func _ready() -> void:
-	print(t.get_sub_bit("HealthBit", true))

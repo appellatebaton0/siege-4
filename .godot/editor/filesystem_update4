@@ -1,3 +1,11 @@
+res://scenes/enemy.tscn
+res://scenes/main.tscn
+res://scripts/bits/spawner.gd
 res://scenes/player.tscn
-res://scripts/bits/health.gd
+res://script_templates/AreaBit2D/area2d_template.gd
 res://scripts/bot.gd
+res://scripts/bits/health.gd
+res://script_templates/AreaBit/areabit_template.gd
+res://scripts/bits/areabits/damagebits/damage.gd
+res://scripts/bits/bit.gd
+res://scripts/bits/areabits/damagebits/damage2d.gd
