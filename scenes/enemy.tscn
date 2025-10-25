@@ -1,14 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://chtyhmq2k76yo"]
+[gd_scene load_steps=9 format=3 uid="uid://chtyhmq2k76yo"]
 
 [ext_resource type="Script" uid="uid://cvqf1hrebc04p" path="res://scripts/bot.gd" id="1_7p1mj"]
 [ext_resource type="Script" uid="uid://dx6xpuy57uxvg" path="res://scripts/bits/areamaster2D.gd" id="2_5uy6h"]
 [ext_resource type="Script" uid="uid://ce0lih35lp5ov" path="res://scripts/bits/movemaster2d.gd" id="3_c4w8v"]
+[ext_resource type="Script" uid="uid://cfkixdfggxn8k" path="res://scripts/bits/areabits/damagebits/single.gd" id="3_xwavj"]
 [ext_resource type="Script" uid="uid://cy1rmplhq2axl" path="res://scripts/bits/movebits/straight.gd" id="4_xwavj"]
 
 [sub_resource type="Gradient" id="Gradient_md0e3"]
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_4ra3w"]
 gradient = SubResource("Gradient_md0e3")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c4w8v"]
+size = Vector2(64, 64)
 
 [node name="Enemy" type="Node2D"]
 script = ExtResource("1_7p1mj")
@@ -23,7 +27,12 @@ collision_layer = 2
 script = ExtResource("2_5uy6h")
 metadata/_custom_type_script = "uid://dx6xpuy57uxvg"
 
-[node name="Node" type="Node" parent="Area2D"]
+[node name="SingleDamage" type="Node" parent="Area2D"]
+script = ExtResource("3_xwavj")
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_c4w8v")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 collision_layer = 0

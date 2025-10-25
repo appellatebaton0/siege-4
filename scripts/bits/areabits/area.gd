@@ -21,5 +21,5 @@ func on_area_exited(_area:Node) -> void:
 ## Always run; effectively _process with inputs for overlapping bodies / areas.
 func while_overlapping_bodies(_bodies:Array[Node], _delta:float) -> void:
 	pass
-func while_overlapping_areas(_area:Array[Node], _delta:float) -> void:
+func while_overlapping_areas(_areas:Array[Node], _delta:float) -> void:
 	pass
