@@ -11,7 +11,7 @@ var anim_player:AnimationPlayer
 ## Look for an AnimationPlayer in the children, siblings, piblings, etc.
 func search_player(with:Node, depth:int = 7) -> AnimationPlayer:
 	# If this happens, no player was found :(
-	if depth <= 0:
+	if depth <= 0 or with == null:
 		return null
 	
 	# Search the children for a player
@@ -23,6 +23,11 @@ func search_player(with:Node, depth:int = 7) -> AnimationPlayer:
 	return search_player(with.get_parent(), depth - 1)
 
 func _ready() -> void:
+	if player == null:
+		for child in get_children():
+			if child is NodeValue:
+				player = child
+
 	if player != null:
 		var p_node = player.value()
 		if p_node is AnimationPlayer:

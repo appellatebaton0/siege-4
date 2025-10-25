@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://bl57jg6s28sas" path="res://scripts/values/vector2/rect_vec2.gd" id="7_fpun6"]
 [ext_resource type="Script" uid="uid://dc8sod06feafh" path="res://scripts/values/float/manual_float.gd" id="8_wc255"]
 
-[node name="Level" type="Node"]
+[node name="Level" type="Node" groups=["Level"]]
 
 [node name="Player" parent="." instance=ExtResource("1_b121j")]
 

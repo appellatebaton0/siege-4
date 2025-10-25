@@ -3,3 +3,5 @@ res://scripts/bits/add.gd
 res://scenes/main.tscn
 res://scripts/values/node/group_node.gd
 res://scenes/level.tscn
+res://scripts/bits/delete.gd
+res://scenes/player.tscn

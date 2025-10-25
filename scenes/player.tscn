@@ -1,12 +1,15 @@
-[gd_scene load_steps=12 format=3 uid="uid://dt5anurf2hd6c"]
+[gd_scene load_steps=15 format=3 uid="uid://dt5anurf2hd6c"]
 
 [ext_resource type="Script" uid="uid://cvqf1hrebc04p" path="res://scripts/bot.gd" id="1_dqkch"]
 [ext_resource type="Script" uid="uid://ce0lih35lp5ov" path="res://scripts/bits/movemaster2d.gd" id="2_qlg0r"]
 [ext_resource type="Script" uid="uid://dm0cvcckbo1ha" path="res://scripts/bits/movebits/control_bits/float_control.gd" id="3_tuyoq"]
 [ext_resource type="Script" uid="uid://dx6xpuy57uxvg" path="res://scripts/bits/areamaster2D.gd" id="4_fjrip"]
 [ext_resource type="Script" uid="uid://d1caarqf4qo63" path="res://scripts/bits/health.gd" id="5_qlg0r"]
+[ext_resource type="Script" uid="uid://dw7w6pry2g435" path="res://scripts/bits/player_animator.gd" id="6_d2wvv"]
 [ext_resource type="Script" uid="uid://bc87fqj83okns" path="res://scripts/bits/property_modifier.gd" id="6_smehm"]
+[ext_resource type="Script" uid="uid://bslmamakq2ao5" path="res://scripts/values/node/group_node.gd" id="7_3v2ag"]
 [ext_resource type="Script" uid="uid://b1o48vkwquyxs" path="res://scripts/values/node/manual_node.gd" id="7_ur7pv"]
+[ext_resource type="Script" uid="uid://m0fehjfpnp51" path="res://scripts/bits/delete.gd" id="8_jej6c"]
 [ext_resource type="Script" uid="uid://d7n7ctdl2nsg" path="res://scripts/values/property.gd" id="8_y4r1p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qlg0r"]
@@ -49,7 +52,27 @@ texture = SubResource("GradientTexture2D_jyhfs")
 
 [node name="HealthBit" type="Node" parent="."]
 script = ExtResource("5_qlg0r")
+health = 3.0
 invincibility_time = 1.0
+
+[node name="Lose" type="Node" parent="HealthBit"]
+script = ExtResource("6_d2wvv")
+animation = "game_to_lost"
+metadata/_custom_type_script = "uid://dw7w6pry2g435"
+
+[node name="GetAnimator" type="Node" parent="HealthBit/Lose"]
+script = ExtResource("7_3v2ag")
+group_name = "Animator"
+metadata/_custom_type_script = "uid://bslmamakq2ao5"
+
+[node name="StopRepeatedAnimation" type="Node" parent="HealthBit"]
+script = ExtResource("8_jej6c")
+metadata/_custom_type_script = "uid://m0fehjfpnp51"
+
+[node name="Animator" type="Node" parent="HealthBit/StopRepeatedAnimation" node_paths=PackedStringArray("response")]
+script = ExtResource("7_ur7pv")
+response = NodePath("../../Lose")
+metadata/_custom_type_script = "uid://b1o48vkwquyxs"
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 offset_left = -88.0
@@ -79,3 +102,6 @@ metadata/_custom_type_script = "uid://d7n7ctdl2nsg"
 script = ExtResource("7_ur7pv")
 response = NodePath("../../../../HealthBit")
 metadata/_custom_type_script = "uid://b1o48vkwquyxs"
+
+[connection signal="reached_zero" from="HealthBit" to="HealthBit/Lose" method="animate"]
+[connection signal="reached_zero" from="HealthBit" to="HealthBit/StopRepeatedAnimation" method="delete"]
