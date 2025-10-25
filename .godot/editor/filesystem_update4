@@ -1,9 +1,5 @@
-res://scenes/enemy.tscn
-res://scripts/bits/areabits/damagebits/damage2d.gd
-res://script_templates/DamageBit2D/damagebit_template.gd
-res://scripts/bits/areabits/damagebits/single.gd
+res://scripts/bits/player_animator.gd
+res://scripts/bits/add.gd
 res://scenes/main.tscn
-res://scripts/bits/areamaster2D.gd
-res://scenes/player.tscn
-res://scripts/bits/health.gd
-res://scripts/bits/areabits/area.gd
+res://scripts/values/node/group_node.gd
+res://scenes/level.tscn
