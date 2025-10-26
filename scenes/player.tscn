@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://dt5anurf2hd6c"]
+[gd_scene load_steps=16 format=3 uid="uid://dt5anurf2hd6c"]
 
 [ext_resource type="Script" uid="uid://cvqf1hrebc04p" path="res://scripts/bot.gd" id="1_dqkch"]
 [ext_resource type="Script" uid="uid://ce0lih35lp5ov" path="res://scripts/bits/movemaster2d.gd" id="2_qlg0r"]
 [ext_resource type="Script" uid="uid://dm0cvcckbo1ha" path="res://scripts/bits/movebits/control_bits/float_control.gd" id="3_tuyoq"]
 [ext_resource type="Script" uid="uid://dx6xpuy57uxvg" path="res://scripts/bits/areamaster2D.gd" id="4_fjrip"]
+[ext_resource type="Texture2D" uid="uid://cumb1n1wsm3bl" path="res://assets/player.png" id="5_3v2ag"]
 [ext_resource type="Script" uid="uid://d1caarqf4qo63" path="res://scripts/bits/health.gd" id="5_qlg0r"]
 [ext_resource type="Script" uid="uid://dw7w6pry2g435" path="res://scripts/bits/player_animator.gd" id="6_d2wvv"]
 [ext_resource type="Script" uid="uid://bc87fqj83okns" path="res://scripts/bits/property_modifier.gd" id="6_smehm"]
@@ -12,22 +13,30 @@
 [ext_resource type="Script" uid="uid://m0fehjfpnp51" path="res://scripts/bits/delete.gd" id="8_jej6c"]
 [ext_resource type="Script" uid="uid://d7n7ctdl2nsg" path="res://scripts/values/property.gd" id="8_y4r1p"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qlg0r"]
-size = Vector2(16, 16)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3v2ag"]
+size = Vector2(21, 48)
 
-[sub_resource type="Gradient" id="Gradient_sugp2"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3v2ag"]
+bg_color = Color(0.54, 0.19980001, 0.19980001, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.46, 0.15179999, 0.15179999, 1)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_jyhfs"]
-gradient = SubResource("Gradient_sugp2")
-width = 16
-height = 16
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jej6c"]
+bg_color = Color(0.2784314, 0.5411765, 0.2, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.22371332, 0.46, 0.15179999, 1)
 
 [node name="Player" type="Node2D"]
 script = ExtResource("1_dqkch")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-collision_layer = 0
-collision_mask = 0
+collision_mask = 4
 
 [node name="MoveMasterBit2D" type="Node" parent="CharacterBody2D"]
 script = ExtResource("2_qlg0r")
@@ -35,9 +44,13 @@ metadata/_custom_type_script = "uid://ce0lih35lp5ov"
 
 [node name="FloatControlBit" type="Node" parent="CharacterBody2D"]
 script = ExtResource("3_tuyoq")
-acceleration = 300.0
-max_speed = 75.0
+acceleration = 400.0
+max_speed = 110.0
 metadata/_custom_type_script = "uid://dm0cvcckbo1ha"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(-5.5, 0)
+shape = SubResource("RectangleShape2D_3v2ag")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_mask = 2
@@ -46,14 +59,17 @@ collision_mask = 2
 script = ExtResource("4_fjrip")
 metadata/_custom_type_script = "uid://dx6xpuy57uxvg"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_qlg0r")
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(5, -24, 5, -2, 16, -2, 16, 2, 5, 2, 5, 24, -5, 24, -5, 14, -16, 6, -16, -6, -5, -14, -5, -24)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("GradientTexture2D_jyhfs")
+texture_filter = 1
+rotation = 1.5707964
+texture = ExtResource("5_3v2ag")
 
 [node name="HealthBit" type="Node" parent="."]
 script = ExtResource("5_qlg0r")
+max_health = 3.0
 health = 3.0
 invincibility_time = 1.0
 
@@ -76,34 +92,48 @@ script = ExtResource("7_ur7pv")
 response = NodePath("../../Lose")
 metadata/_custom_type_script = "uid://b1o48vkwquyxs"
 
-[node name="ProgressBar" type="ProgressBar" parent="."]
-offset_left = -27.0
-offset_top = -18.0
-offset_right = 26.0
-offset_bottom = -12.0
-max_value = 40.0
-value = 20.0
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/MarginContainer"]
+custom_minimum_size = Vector2(230, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_3v2ag")
+theme_override_styles/fill = SubResource("StyleBoxFlat_jej6c")
+max_value = 3.0
+value = 2.0
 show_percentage = false
 
-[node name="PropertyModifier" type="Node" parent="ProgressBar"]
+[node name="PropertyModifier" type="Node" parent="CanvasLayer/MarginContainer/ProgressBar"]
 script = ExtResource("6_smehm")
 property = "value"
 constant = true
 metadata/_custom_type_script = "uid://bc87fqj83okns"
 
-[node name="ManualNode" type="Node" parent="ProgressBar/PropertyModifier" node_paths=PackedStringArray("response")]
+[node name="ManualNode" type="Node" parent="CanvasLayer/MarginContainer/ProgressBar/PropertyModifier" node_paths=PackedStringArray("response")]
 script = ExtResource("7_ur7pv")
 response = NodePath("../..")
 metadata/_custom_type_script = "uid://b1o48vkwquyxs"
 
-[node name="Property" type="Node" parent="ProgressBar/PropertyModifier"]
+[node name="Property" type="Node" parent="CanvasLayer/MarginContainer/ProgressBar/PropertyModifier"]
 script = ExtResource("8_y4r1p")
 property = "health"
 metadata/_custom_type_script = "uid://d7n7ctdl2nsg"
 
-[node name="ManualNode" type="Node" parent="ProgressBar/PropertyModifier/Property" node_paths=PackedStringArray("response")]
+[node name="ManualNode" type="Node" parent="CanvasLayer/MarginContainer/ProgressBar/PropertyModifier/Property" node_paths=PackedStringArray("response")]
 script = ExtResource("7_ur7pv")
-response = NodePath("../../../../HealthBit")
+response = NodePath("../../../../../../HealthBit")
 metadata/_custom_type_script = "uid://b1o48vkwquyxs"
 
 [connection signal="reached_zero" from="HealthBit" to="HealthBit/Lose" method="animate"]

@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://cef4ydkvvtps0"]
+[gd_scene load_steps=21 format=3 uid="uid://cef4ydkvvtps0"]
 
+[ext_resource type="Texture2D" uid="uid://dn3k7f8wk2al7" path="res://assets/background.png" id="1_8c41q"]
 [ext_resource type="PackedScene" uid="uid://dt5anurf2hd6c" path="res://scenes/player.tscn" id="1_b121j"]
 [ext_resource type="Script" uid="uid://cvqf1hrebc04p" path="res://scripts/bot.gd" id="2_8c41q"]
 [ext_resource type="Script" uid="uid://donf4y4qkpwsw" path="res://scripts/bits/spawner.gd" id="3_olg7q"]
@@ -8,8 +9,34 @@
 [ext_resource type="Script" uid="uid://b1o48vkwquyxs" path="res://scripts/values/node/manual_node.gd" id="6_64w2a"]
 [ext_resource type="Script" uid="uid://bl57jg6s28sas" path="res://scripts/values/vector2/rect_vec2.gd" id="7_fpun6"]
 [ext_resource type="Script" uid="uid://dc8sod06feafh" path="res://scripts/values/float/manual_float.gd" id="8_wc255"]
+[ext_resource type="Texture2D" uid="uid://dtpqjaqggj6ir" path="res://assets/cloud.png" id="10_olg7q"]
+[ext_resource type="Script" uid="uid://c7kkv1iuav8gk" path="res://scripts/bits/value.gd" id="11_8iemx"]
+[ext_resource type="Script" uid="uid://dskpur7022v4i" path="res://scripts/bits/timer.gd" id="12_64w2a"]
+[ext_resource type="Script" uid="uid://hg8o6oww1p4g" path="res://scripts/bits/value_modifier.gd" id="13_wc255"]
+[ext_resource type="Script" uid="uid://cae7ohv2js782" path="res://scripts/values/float/modified_float.gd" id="14_arp2o"]
+[ext_resource type="Script" uid="uid://bdjqjjp8vifaj" path="res://scripts/values/float/cast_float.gd" id="15_82cfe"]
+[ext_resource type="Script" uid="uid://64djo1ycff7k" path="res://scripts/values/bit.gd" id="15_ux5qa"]
+[ext_resource type="Script" uid="uid://bc87fqj83okns" path="res://scripts/bits/property_modifier.gd" id="16_ux5qa"]
+[ext_resource type="Script" uid="uid://bxl20cm7r57lo" path="res://scripts/values/string/concat_string.gd" id="17_82cfe"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_olg7q"]
+size = Vector2(421.5, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t1rx8"]
+size = Vector2(52.5, 268)
 
 [node name="Level" type="Node" groups=["Level"]]
+script = ExtResource("2_8c41q")
+metadata/_custom_type_script = "uid://cvqf1hrebc04p"
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+repeat_size = Vector2(384, 0)
+autoscroll = Vector2(-60, 0)
+repeat_times = 30
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
+texture_filter = 1
+texture = ExtResource("1_8c41q")
 
 [node name="Player" parent="." instance=ExtResource("1_b121j")]
 
@@ -46,7 +73,112 @@ response = 1.4
 metadata/_custom_type_script = "uid://dc8sod06feafh"
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(4, 4)
+zoom = Vector2(3, 3)
 
 [node name="Enemy" parent="." instance=ExtResource("5_8iemx")]
 position = Vector2(25, -27)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 2
+texture_filter = 1
+texture = ExtResource("10_olg7q")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-2.5, -123)
+shape = SubResource("RectangleShape2D_olg7q")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-2.75, 123)
+shape = SubResource("RectangleShape2D_olg7q")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-218, 7)
+shape = SubResource("RectangleShape2D_t1rx8")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(173, 5)
+shape = SubResource("RectangleShape2D_t1rx8")
+
+[node name="Score" type="Node" parent="."]
+script = ExtResource("11_8iemx")
+id = "score"
+value = 0.0
+metadata/_custom_type_script = "uid://c7kkv1iuav8gk"
+
+[node name="1sTImer" type="Node" parent="Score"]
+script = ExtResource("12_64w2a")
+length = 0.1
+
+[node name="AddScore" type="Node" parent="Score" node_paths=PackedStringArray("target", "new_value")]
+script = ExtResource("13_wc255")
+target = NodePath("Score+1/CastFloat/GetScore/GetLevel")
+value_id = "score"
+new_value = NodePath("Score+1")
+metadata/_custom_type_script = "uid://hg8o6oww1p4g"
+
+[node name="Score+1" type="Node" parent="Score/AddScore"]
+script = ExtResource("14_arp2o")
+metadata/_custom_type_script = "uid://cae7ohv2js782"
+
+[node name="CastFloat" type="Node" parent="Score/AddScore/Score+1"]
+script = ExtResource("15_82cfe")
+metadata/_custom_type_script = "uid://bdjqjjp8vifaj"
+
+[node name="GetScore" type="Node" parent="Score/AddScore/Score+1/CastFloat"]
+script = ExtResource("15_ux5qa")
+id = "score"
+metadata/_custom_type_script = "uid://64djo1ycff7k"
+
+[node name="GetLevel" type="Node" parent="Score/AddScore/Score+1/CastFloat/GetScore" node_paths=PackedStringArray("response")]
+script = ExtResource("6_64w2a")
+response = NodePath("../../../../../..")
+metadata/_custom_type_script = "uid://b1o48vkwquyxs"
+
+[node name="1" type="Node" parent="Score/AddScore/Score+1"]
+script = ExtResource("8_wc255")
+response = 0.1
+metadata/_custom_type_script = "uid://dc8sod06feafh"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(230, 40)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+text = "SCORE: 0"
+
+[node name="PropertyModifier" type="Node" parent="CanvasLayer/MarginContainer/VBoxContainer/Label"]
+script = ExtResource("16_ux5qa")
+property = "text"
+constant = true
+metadata/_custom_type_script = "uid://bc87fqj83okns"
+
+[node name="ManualNode" type="Node" parent="CanvasLayer/MarginContainer/VBoxContainer/Label/PropertyModifier" node_paths=PackedStringArray("response")]
+script = ExtResource("6_64w2a")
+response = NodePath("../..")
+metadata/_custom_type_script = "uid://b1o48vkwquyxs"
+
+[node name="ConcatString" type="Node" parent="CanvasLayer/MarginContainer/VBoxContainer/Label/PropertyModifier" node_paths=PackedStringArray("values")]
+script = ExtResource("17_82cfe")
+values = [NodePath("../../../../../../Score/AddScore/Score+1/CastFloat/GetScore")]
+string = "SCORE: {0}"
+metadata/_custom_type_script = "uid://bxl20cm7r57lo"
+
+[connection signal="timed_out" from="Score/1sTImer" to="Score/AddScore" method="modify"]

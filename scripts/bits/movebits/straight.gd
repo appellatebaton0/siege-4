@@ -27,11 +27,11 @@ func phys_active(delta:float) -> void:
 		var this_accel := acceleration
 		var this_max_speed := max_speeds
 		
+		## If Values exist, use those instead.
 		if value_acceleration != null:
 			this_accel = value_acceleration.value()
 		if value_max_speeds != null:
 			this_max_speed = value_max_speeds.value()
-		print(this_max_speed)
 		
 		
 		master.mover.velocity = vec2_move_towards(master.mover.velocity, this_max_speed, this_accel * delta * 60)

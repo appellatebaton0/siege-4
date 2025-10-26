@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://chm3si0nicqxd"]
+[gd_scene load_steps=16 format=3 uid="uid://chm3si0nicqxd"]
 
 [ext_resource type="PackedScene" uid="uid://cef4ydkvvtps0" path="res://scenes/level.tscn" id="1_tbgi4"]
 [ext_resource type="Script" uid="uid://dw7w6pry2g435" path="res://scripts/bits/player_animator.gd" id="2_tefeu"]
@@ -8,6 +8,17 @@
 [ext_resource type="Script" uid="uid://bslmamakq2ao5" path="res://scripts/values/node/group_node.gd" id="6_tefeu"]
 [ext_resource type="Script" uid="uid://b7ecah37jx738" path="res://scripts/bits/player_finished.gd" id="7_o6xl0"]
 [ext_resource type="Script" uid="uid://m0fehjfpnp51" path="res://scripts/bits/delete.gd" id="8_tipki"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tipki"]
+bg_color = Color(0.18360001, 0.51, 0.25432003, 1)
+border_width_left = 25
+border_width_top = 25
+border_width_right = 25
+border_width_bottom = 25
+border_color = Color(0.13333334, 0.2627451, 0.16078432, 1)
+
+[sub_resource type="Theme" id="Theme_85g3d"]
+Panel/styles/panel = SubResource("StyleBoxFlat_tipki")
 
 [sub_resource type="Animation" id="Animation_tipki"]
 resource_name = "start_to_game"
@@ -176,6 +187,7 @@ _data = {
 [node name="Main" type="Node" groups=["Main"]]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
 
 [node name="Control" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -184,6 +196,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_85g3d")
 
 [node name="StartScreen" type="Panel" parent="CanvasLayer/Control"]
 layout_mode = 1
@@ -291,7 +304,7 @@ text = "START"
 
 [node name="Animate" type="Node" parent="CanvasLayer/Control/LostScreen/MarginContainer/VBoxContainer/Button"]
 script = ExtResource("2_tefeu")
-animation = "start_to_game"
+animation = "lost_to_game"
 metadata/_custom_type_script = "uid://dw7w6pry2g435"
 
 [node name="ManualNode" type="Node" parent="CanvasLayer/Control/LostScreen/MarginContainer/VBoxContainer/Button/Animate" node_paths=PackedStringArray("response")]
