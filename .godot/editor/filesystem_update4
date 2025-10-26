@@ -5,3 +5,6 @@ res://scripts/values/node/group_node.gd
 res://scenes/level.tscn
 res://scripts/bits/delete.gd
 res://scenes/player.tscn
+res://scenes/enemy.tscn
+res://scripts/bits/movebits/straight.gd
+res://scripts/values/vector2/rect_vec2.gd
