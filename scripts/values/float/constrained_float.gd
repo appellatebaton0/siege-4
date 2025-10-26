@@ -19,4 +19,4 @@ func value() -> float:
 			i_value = minf(float(i_value), float(maximum.value()))
 		
 		return i_value # Return the final result.
-	return -1.0
+	return -16777216

@@ -178,11 +178,11 @@ metadata/_custom_type_script = "uid://b1o48vkwquyxs"
 
 [node name="ConcatString" type="Node" parent="CanvasLayer/MarginContainer/VBoxContainer/Label/PropertyModifier" node_paths=PackedStringArray("values")]
 script = ExtResource("17_82cfe")
-values = [NodePath("Node")]
+values = [NodePath("RoundedScore")]
 string = "SCORE: {0}"
 metadata/_custom_type_script = "uid://bxl20cm7r57lo"
 
-[node name="Node" type="Node" parent="CanvasLayer/MarginContainer/VBoxContainer/Label/PropertyModifier/ConcatString" node_paths=PackedStringArray("input")]
+[node name="RoundedScore" type="Node" parent="CanvasLayer/MarginContainer/VBoxContainer/Label/PropertyModifier/ConcatString" node_paths=PackedStringArray("input")]
 script = ExtResource("19_gunhw")
 input = NodePath("../../../../../../../Score/AddScore/Score+1/Score")
 places = 2

@@ -15,4 +15,4 @@ func value() -> float:
 		var val = input.value()
 		if val is int or val is float or val is bool:
 			return float(val)
-	return -1.0
+	return -16777216

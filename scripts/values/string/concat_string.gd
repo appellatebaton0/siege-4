@@ -9,15 +9,23 @@ class_name ConcatString extends StringValue
 
 func _ready() -> void:
 	for child in get_children():
-		if child is Value:
+		if child is Value and not values.has(child):
 			values.append(child)
 
+var last_values:Array[Variant] = [0,0,0,0,0,0,0]
 func value() -> String:
 	var response:String = string
 	
 	for i in range(len(values)):
 		if values[i] != null:
 			var val = values[i].value()
-			response = response.replace("{"+str(i)+"}", str(val))
+			
+			if val != null and val != -16777216:
+				last_values[i] = val
+				response = response.replace("{"+str(i)+"}", str(val))
+			else:
+				if len(last_values) >= i:
+					response = response.replace("{"+str(i)+"}", str(last_values[i]))
+			
 	
 	return response 

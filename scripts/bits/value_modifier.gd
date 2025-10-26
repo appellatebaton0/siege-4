@@ -9,18 +9,22 @@ class_name ValueModifierBit extends Bit
 @export var new_value:Value
 ## Whether to constantly modify.
 @export var constant := false
+## Modifies if the condition is true.
+@export var condition:BoolValue
 
 ## For signals that are STUPID.
 func modify_val(_value):
 	modify()
 
 func _process(_delta: float) -> void:
-	if constant:
+	if constant or (condition != null and condition.value()):
+		print(condition.value())
 		modify()
 
 ## Can be attached to signals >:)
 func modify():
 	if target != null and new_value != null:
+		
 		var target_node = target.value()
 		var next_value = new_value.value()
 		

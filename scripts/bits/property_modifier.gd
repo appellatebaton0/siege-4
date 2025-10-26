@@ -17,7 +17,7 @@ func _ready() -> void:
 		elif child is Value and value == null:
 			value = child
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if constant:
 		update()
 

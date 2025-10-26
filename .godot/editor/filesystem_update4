@@ -12,3 +12,8 @@ res://scripts/bits/timer.gd
 res://scripts/bits/value_modifier.gd
 res://scripts/bits/spawner.gd
 res://scripts/values/float/round.gd
+res://scripts/values/float/cast_float.gd
+res://scripts/values/float/constrained_float.gd
+res://scripts/bits/value.gd
+res://scripts/values/string/concat_string.gd
+res://scripts/bits/property_modifier.gd

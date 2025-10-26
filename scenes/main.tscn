@@ -1,5 +1,6 @@
-[gd_scene load_steps=16 format=3 uid="uid://chm3si0nicqxd"]
+[gd_scene load_steps=27 format=3 uid="uid://chm3si0nicqxd"]
 
+[ext_resource type="Script" uid="uid://cvqf1hrebc04p" path="res://scripts/bot.gd" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://cef4ydkvvtps0" path="res://scenes/level.tscn" id="1_tbgi4"]
 [ext_resource type="Script" uid="uid://dw7w6pry2g435" path="res://scripts/bits/player_animator.gd" id="2_tefeu"]
 [ext_resource type="Script" uid="uid://chbr2ps15l74p" path="res://scripts/bits/add.gd" id="4_o6xl0"]
@@ -7,7 +8,17 @@
 [ext_resource type="Script" uid="uid://b1o48vkwquyxs" path="res://scripts/values/node/manual_node.gd" id="6_choun"]
 [ext_resource type="Script" uid="uid://bslmamakq2ao5" path="res://scripts/values/node/group_node.gd" id="6_tefeu"]
 [ext_resource type="Script" uid="uid://b7ecah37jx738" path="res://scripts/bits/player_finished.gd" id="7_o6xl0"]
+[ext_resource type="Script" uid="uid://bc87fqj83okns" path="res://scripts/bits/property_modifier.gd" id="8_muem4"]
 [ext_resource type="Script" uid="uid://m0fehjfpnp51" path="res://scripts/bits/delete.gd" id="8_tipki"]
+[ext_resource type="Script" uid="uid://bxl20cm7r57lo" path="res://scripts/values/string/concat_string.gd" id="9_dp3eg"]
+[ext_resource type="Script" uid="uid://bck35smf1mhvk" path="res://scripts/values/float/round.gd" id="10_0ld40"]
+[ext_resource type="Script" uid="uid://c7kkv1iuav8gk" path="res://scripts/bits/value.gd" id="13_gqmmt"]
+[ext_resource type="Script" uid="uid://hg8o6oww1p4g" path="res://scripts/bits/value_modifier.gd" id="14_yc10j"]
+[ext_resource type="Script" uid="uid://cbcstrsy2txwl" path="res://scripts/values/bool/inequality.gd" id="15_0ld40"]
+[ext_resource type="Script" uid="uid://b3pqxy3hkl2fo" path="res://scripts/values/float/constrained_float.gd" id="15_jscy8"]
+[ext_resource type="Script" uid="uid://dc8sod06feafh" path="res://scripts/values/float/manual_float.gd" id="16_gqmmt"]
+[ext_resource type="Script" uid="uid://bdjqjjp8vifaj" path="res://scripts/values/float/cast_float.gd" id="16_pm3ni"]
+[ext_resource type="Script" uid="uid://64djo1ycff7k" path="res://scripts/values/bit.gd" id="17_y6deb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tipki"]
 bg_color = Color(0.18360001, 0.51, 0.25432003, 1)
@@ -185,6 +196,7 @@ _data = {
 }
 
 [node name="Main" type="Node" groups=["Main"]]
+script = ExtResource("1_o5qli")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2
@@ -286,15 +298,58 @@ theme_override_constants/margin_bottom = 100
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/LostScreen/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 74
+theme_override_constants/separation = 39
 
-[node name="Label" type="Label" parent="CanvasLayer/Control/LostScreen/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/LostScreen/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/LostScreen/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 76
 text = "You Lost..."
 horizontal_alignment = 1
 vertical_alignment = 2
+
+[node name="ScoreDisplay" type="Label" parent="CanvasLayer/Control/LostScreen/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 36
+text = "Score: 0 | Highscore: 0"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="PropertyModifier" type="Node" parent="CanvasLayer/Control/LostScreen/MarginContainer/VBoxContainer/VBoxContainer/ScoreDisplay" node_paths=PackedStringArray("target", "value")]
+script = ExtResource("8_muem4")
+target = NodePath("ManualNode")
+property = "text"
+value = NodePath("ScoreText")
+constant = true
+metadata/_custom_type_script = "uid://bc87fqj83okns"
+
+[node name="ManualNode" type="Node" parent="CanvasLayer/Control/LostScreen/MarginContainer/VBoxContainer/VBoxContainer/ScoreDisplay/PropertyModifier" node_paths=PackedStringArray("response")]
+script = ExtResource("6_choun")
+response = NodePath("../..")
+metadata/_custom_type_script = "uid://b1o48vkwquyxs"
+
+[node name="ScoreText" type="Node" parent="CanvasLayer/Control/LostScreen/MarginContainer/VBoxContainer/VBoxContainer/ScoreDisplay/PropertyModifier" node_paths=PackedStringArray("values")]
+script = ExtResource("9_dp3eg")
+values = [NodePath("RoundedScore"), NodePath("RoundedHighscore")]
+string = "Score: {0} | Highscore: {1}"
+metadata/_custom_type_script = "uid://bxl20cm7r57lo"
+
+[node name="RoundedScore" type="Node" parent="CanvasLayer/Control/LostScreen/MarginContainer/VBoxContainer/VBoxContainer/ScoreDisplay/PropertyModifier/ScoreText" node_paths=PackedStringArray("input")]
+script = ExtResource("10_0ld40")
+input = NodePath("../../../../../../../../../../Highscore/UpdateHS/Higher/Score")
+places = 2
+metadata/_custom_type_script = "uid://bck35smf1mhvk"
+
+[node name="RoundedHighscore" type="Node" parent="CanvasLayer/Control/LostScreen/MarginContainer/VBoxContainer/VBoxContainer/ScoreDisplay/PropertyModifier/ScoreText" node_paths=PackedStringArray("input")]
+script = ExtResource("10_0ld40")
+input = NodePath("../../../../../../../../../../Highscore/UpdateHS/Higher/Highscore")
+places = 2
+metadata/_custom_type_script = "uid://bck35smf1mhvk"
 
 [node name="Button" type="Button" parent="CanvasLayer/Control/LostScreen/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -353,6 +408,65 @@ metadata/_custom_type_script = "uid://m0fehjfpnp51"
 script = ExtResource("6_tefeu")
 group_name = "Level"
 metadata/_custom_type_script = "uid://bslmamakq2ao5"
+
+[node name="Highscore" type="Node" parent="."]
+script = ExtResource("13_gqmmt")
+id = "highscore"
+value = 0.0
+metadata/_custom_type_script = "uid://c7kkv1iuav8gk"
+
+[node name="UpdateHS" type="Node" parent="Highscore" node_paths=PackedStringArray("target", "new_value", "condition")]
+script = ExtResource("14_yc10j")
+target = NodePath("Higher/Highscore/GetHighscore/GetMain")
+value_id = "highscore"
+new_value = NodePath("Higher")
+condition = NodePath("InequalityBool")
+metadata/_custom_type_script = "uid://hg8o6oww1p4g"
+
+[node name="InequalityBool" type="Node" parent="Highscore/UpdateHS" node_paths=PackedStringArray("value_a", "value_b")]
+script = ExtResource("15_0ld40")
+value_a = NodePath("../Higher")
+inequality = 3
+value_b = NodePath("ManualFloat")
+metadata/_custom_type_script = "uid://cbcstrsy2txwl"
+
+[node name="ManualFloat" type="Node" parent="Highscore/UpdateHS/InequalityBool"]
+script = ExtResource("16_gqmmt")
+metadata/_custom_type_script = "uid://dc8sod06feafh"
+
+[node name="Higher" type="Node" parent="Highscore/UpdateHS" node_paths=PackedStringArray("input", "minimum")]
+script = ExtResource("15_jscy8")
+input = NodePath("Score")
+minimum = NodePath("Highscore")
+metadata/_custom_type_script = "uid://b3pqxy3hkl2fo"
+
+[node name="Score" type="Node" parent="Highscore/UpdateHS/Higher"]
+script = ExtResource("16_pm3ni")
+metadata/_custom_type_script = "uid://bdjqjjp8vifaj"
+
+[node name="GetScore" type="Node" parent="Highscore/UpdateHS/Higher/Score"]
+script = ExtResource("17_y6deb")
+id = "score"
+metadata/_custom_type_script = "uid://64djo1ycff7k"
+
+[node name="GetLevel" type="Node" parent="Highscore/UpdateHS/Higher/Score/GetScore"]
+script = ExtResource("6_tefeu")
+group_name = "Level"
+metadata/_custom_type_script = "uid://bslmamakq2ao5"
+
+[node name="Highscore" type="Node" parent="Highscore/UpdateHS/Higher"]
+script = ExtResource("16_pm3ni")
+metadata/_custom_type_script = "uid://bdjqjjp8vifaj"
+
+[node name="GetHighscore" type="Node" parent="Highscore/UpdateHS/Higher/Highscore"]
+script = ExtResource("17_y6deb")
+id = "highscore"
+metadata/_custom_type_script = "uid://64djo1ycff7k"
+
+[node name="GetMain" type="Node" parent="Highscore/UpdateHS/Higher/Highscore/GetHighscore" node_paths=PackedStringArray("response")]
+script = ExtResource("6_choun")
+response = NodePath("../../../../../..")
+metadata/_custom_type_script = "uid://b1o48vkwquyxs"
 
 [connection signal="pressed" from="CanvasLayer/Control/StartScreen/MarginContainer/VBoxContainer/Button" to="CanvasLayer/Control/StartScreen/MarginContainer/VBoxContainer/Button/Animate" method="animate"]
 [connection signal="pressed" from="CanvasLayer/Control/StartScreen/MarginContainer/VBoxContainer/Button" to="CanvasLayer/Control/StartScreen/MarginContainer/VBoxContainer/Button/LoadLevel" method="add"]

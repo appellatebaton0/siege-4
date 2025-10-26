@@ -1,4 +1,10 @@
+ManualFloat
+InequalityBool
+RoundedFloat
+ConcatString
 ManualNode
+PropertyModifier
+VBoxContainer
 BitValue
 CastFloat
 CastVector2
@@ -7,8 +13,3 @@ ConstrainedFloat
 ValueModifierBit
 ValueBit
 Node
-ConcatString
-PropertyModifier
-Label
-VBoxContainer
-Control

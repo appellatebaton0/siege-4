@@ -13,4 +13,4 @@ func value() -> float:
 		
 		return round(input.value() * place_value) / place_value
 	
-	return -1.0
+	return -16777216
