@@ -11,3 +11,4 @@ res://scripts/values/vector2/rect_vec2.gd
 res://scripts/bits/timer.gd
 res://scripts/bits/value_modifier.gd
 res://scripts/bits/spawner.gd
+res://scripts/values/float/round.gd
