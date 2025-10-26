@@ -21,12 +21,12 @@
 [ext_resource type="Script" uid="uid://64djo1ycff7k" path="res://scripts/values/bit.gd" id="17_y6deb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tipki"]
-bg_color = Color(0.18360001, 0.51, 0.25432003, 1)
+bg_color = Color(0.6, 0.3, 0.15, 1)
 border_width_left = 25
 border_width_top = 25
 border_width_right = 25
 border_width_bottom = 25
-border_color = Color(0.13333334, 0.2627451, 0.16078432, 1)
+border_color = Color(0.29803923, 0.1764706, 0.11764706, 1)
 
 [sub_resource type="Theme" id="Theme_85g3d"]
 Panel/styles/panel = SubResource("StyleBoxFlat_tipki")
@@ -238,8 +238,8 @@ theme_override_constants/separation = 74
 [node name="Label" type="Label" parent="CanvasLayer/Control/StartScreen/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 76
-text = "[SIEGE WEEK 4]"
+theme_override_font_sizes/font_size = 96
+text = "MIGRATION"
 horizontal_alignment = 1
 vertical_alignment = 2
 

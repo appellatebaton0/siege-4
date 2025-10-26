@@ -20,12 +20,11 @@ func value() -> String:
 		if values[i] != null:
 			var val = values[i].value()
 			
-			if val != null and val != -16777216:
+			if val != null and val != -16777216: # Update the failsafe
 				last_values[i] = val
 				response = response.replace("{"+str(i)+"}", str(val))
-			else:
-				if len(last_values) >= i:
+			elif len(last_values) >= i: # Use the failsafe
 					response = response.replace("{"+str(i)+"}", str(last_values[i]))
-			
+	
 	
 	return response 

@@ -18,7 +18,6 @@ func modify_val(_value):
 
 func _process(_delta: float) -> void:
 	if constant or (condition != null and condition.value()):
-		print(condition.value())
 		modify()
 
 ## Can be attached to signals >:)

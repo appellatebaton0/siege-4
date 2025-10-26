@@ -76,9 +76,6 @@ metadata/_custom_type_script = "uid://dc8sod06feafh"
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
 
-[node name="Enemy" parent="." instance=ExtResource("5_8iemx")]
-position = Vector2(25, -27)
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 2
 texture_filter = 1
